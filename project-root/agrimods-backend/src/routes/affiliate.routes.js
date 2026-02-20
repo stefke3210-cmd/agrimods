@@ -4,7 +4,7 @@ const router = express.Router();
 const { body, param, query } = require('express-validator');
 
 // Import middleware with proper path resolution
-const { protect, adminOnly } = require('../middleware/auth');
+const { protect, adminOnly } = require('../middleware/auth.middleware');
 const {
   validateRegisterAffiliate,
   validateUpdateAffiliateSettings,
@@ -536,3 +536,4 @@ router.use((err, req, res, next) => {
 });
 
 module.exports = router;
+
