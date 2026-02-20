@@ -5,40 +5,46 @@ const config = require(path.join(__dirname, 'src', 'config', 'database'));
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
-  console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.error('💥 UNCAUGHT EXCEPTION! Shutting down...');
   console.error(err.name, err.message);
   process.exit(1);
 });
 
-// Connect to database
-mongoose.connect(config.mongoURI, config.options)
-  .then(() => {
-    console.log('✅ Database connection successful');
-  })
-  .catch(err => {
-    console.error('❌ Database connection error:', err);
-  });
-
-// Start server
-const port = process.env.PORT || 5000;
-const server = app.listen(port, () => {
-  console.log(`🚀 Server running on port ${port} in ${process.env.NODE_ENV} mode`);
-});
-
-// Handle unhandled promise rejections
+// Handle unhandled rejections
 process.on('unhandledRejection', (err) => {
-  console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+  console.error('💥 UNHANDLED REJECTION! Shutting down...');
   console.error(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
+  server?.close(() => process.exit(1));
 });
 
-// Handle SIGTERM for graceful shutdown (for Heroku, AWS, etc.)
-process.on('SIGTERM', () => {
-  console.log('👋 SIGTERM RECEIVED. Shutting down gracefully...');
-  server.close(() => {
-    console.log('✅ Process terminated');
-  });
+// Async startup function
+async function startServer() {
+  try {
+    // 1️⃣ Connect to database FIRST
+    await mongoose.connect(config.mongoURI, config.options);
+    console.log('✅ Database connection successful');
 
-});
+    // 2️⃣ Only start server AFTER successful connection
+    const port = process.env.PORT || 5000;
+    const server = app.listen(port, () => {
+      console.log(`🚀 Server running on port ${port} in ${process.env.NODE_ENV || 'development'} mode`);
+    });
+
+    // 3️⃣ Graceful shutdown
+    process.on('SIGTERM', () => {
+      console.log('👋 SIGTERM received. Shutting down gracefully...');
+      server.close(() => {
+        mongoose.connection.close(() => {
+          console.log('✅ Process terminated');
+          process.exit(0);
+        });
+      });
+    });
+
+  } catch (err) {
+    console.error('❌ Failed to start server:', err.message);
+    process.exit(1); // Critical: Exit with error code so Render knows it failed
+  }
+}
+
+startServer();
