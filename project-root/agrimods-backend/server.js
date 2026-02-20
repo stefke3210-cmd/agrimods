@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const app = require('./src/app');
-const config = require('./src/config/database');
+const path = require("path");
+const app = require(path.join(__dirname, 'src', 'app'));
+const config = require(path.join(__dirname, 'src', 'config', 'database'));
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
@@ -39,4 +40,5 @@ process.on('SIGTERM', () => {
   server.close(() => {
     console.log('✅ Process terminated');
   });
+
 });
