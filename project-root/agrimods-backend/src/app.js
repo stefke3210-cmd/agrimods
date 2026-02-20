@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -25,6 +26,7 @@ const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error.controller');
 
 const app = express();
+
 
 // 1. GLOBAL MIDDLEWARES
 // Set security HTTP headers
@@ -96,5 +98,6 @@ app.all('*', (req, res, next) => {
 });
 
 app.use(globalErrorHandler);
+
 
 module.exports = app;
