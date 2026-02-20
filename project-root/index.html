@@ -1,0 +1,2397 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriMods | Premium Farming Simulator Mods</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Bundle/Subscription Schema.org -->
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "ProductCollection",
+"name": "AgriMods Bundles",
+"description": "Save up to 30% with curated mod bundles for Farming Simulator.",
+"hasVariant": [
+{
+"@type": "Product",
+"name": "Balkan Farming Pack",
+"offers": { "@type": "Offer", "price": "299.99", "priceCurrency": "USD" }
+},
+{
+"@type": "Product",
+"name": "All-Access Pass (Monthly)",
+"offers": { "@type": "Offer", "price": "9.99", "priceCurrency": "USD", "itemOffered": { "@type": "Subscription" } }
+}
+]
+}
+</script>
+<style>
+/* Bundles Section */
+.bundles {
+padding: 80px 0;
+background: var(--darker-bg);
+}
+.bundle-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 30px;
+margin-top: 40px;
+}
+.bundle-card {
+background: var(--card-bg);
+border-radius: 16px;
+overflow: hidden;
+border: 1px solid var(--border-color);
+transition: var(--transition);
+position: relative;
+}
+.bundle-card.popular::before {
+content: '';
+position: absolute;
+top: 0;
+right: 0;
+width: 0;
+height: 0;
+border-style: solid;
+border-width: 0 80px 80px 0;
+border-color: transparent var(--red-primary) transparent transparent;
+z-index: 2;
+}
+.bundle-badge {
+position: absolute;
+top: 15px;
+right: -30px;
+background: var(--red-primary);
+color: white;
+padding: 5px 30px;
+transform: rotate(45deg);
+font-weight: 700;
+font-size: 0.8rem;
+z-index: 1;
+}
+.bundle-header {
+padding: 25px;
+text-align: center;
+background: rgba(0,0,0,0.03);
+}
+.bundle-header h3 {
+font-size: 1.8rem;
+margin-bottom: 10px;
+color: #d32f2f;
+}
+.bundle-price {
+font-size: 2.2rem;
+font-weight: 800;
+margin: 15px 0;
+color: #1a1a1a;
+}
+.bundle-old-price {
+text-decoration: line-through;
+color: #757575;
+font-size: 1.2rem;
+margin-left: 8px;
+}
+.bundle-savings {
+background: #4caf50;
+color: white;
+display: inline-block;
+padding: 3px 12px;
+border-radius: 20px;
+font-size: 0.85rem;
+font-weight: 600;
+}
+.bundle-features {
+padding: 20px;
+}
+.bundle-feature {
+display: flex;
+align-items: center;
+margin-bottom: 12px;
+}
+.bundle-feature i {
+color: var(--red-primary);
+margin-right: 10px;
+font-size: 1.1rem;
+}
+.bundle-btn {
+width: 100%;
+padding: 14px;
+background: var(--red-primary);
+color: white;
+border: none;
+border-radius: 8px;
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+font-size: 1.1rem;
+margin-top: 15px;
+}
+.bundle-btn:hover {
+background: var(--red-secondary);
+transform: translateY(-3px);
+}
+/* Affiliate Section */
+.affiliate-section {
+padding: 80px 0;
+}
+.affiliate-cta {
+background: linear-gradient(135deg, var(--red-primary), #b71c1c);
+border-radius: 16px;
+padding: 50px;
+text-align: center;
+color: white;
+}
+.affiliate-cta h2 {
+font-size: 2.5rem;
+margin-bottom: 20px;
+}
+.affiliate-cta p {
+font-size: 1.2rem;
+max-width: 700px;
+margin: 0 auto 30px;
+opacity: 0.9;
+}
+.affiliate-btn {
+background: white;
+color: var(--red-primary);
+border: none;
+padding: 14px 35px;
+border-radius: 30px;
+font-weight: 700;
+font-size: 1.1rem;
+cursor: pointer;
+transition: transform 0.3s;
+}
+.affiliate-btn:hover {
+transform: scale(1.05);
+}
+/* Affiliate Modal */
+.affiliate-modal-content {
+max-width: 700px;
+}
+.affiliate-dashboard {
+background: var(--card-bg);
+border-radius: 12px;
+padding: 25px;
+margin-top: 25px;
+}
+.dashboard-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+gap: 20px;
+margin-bottom: 30px;
+}
+.stat-card {
+background: rgba(255,255,255,0.05);
+padding: 20px;
+border-radius: 12px;
+text-align: center;
+}
+.stat-value {
+font-size: 2rem;
+font-weight: 700;
+color: #ffcc00;
+margin-bottom: 5px;
+}
+.stat-label {
+font-size: 0.9rem;
+color: var(--text-gray);
+}
+.referral-link {
+width: 100%;
+padding: 14px;
+background: rgba(255,255,255,0.05);
+border: 1px solid var(--border-color);
+border-radius: 8px;
+color: var(--text-light);
+font-family: monospace;
+margin: 15px 0;
+}
+.copy-btn {
+background: var(--red-primary);
+color: white;
+border: none;
+padding: 10px 20px;
+border-radius: 8px;
+cursor: pointer;
+font-weight: 600;
+}
+.copy-btn:hover {
+background: var(--red-secondary);
+}
+.payout-info {
+background: rgba(76, 175, 80, 0.1);
+border-left: 4px solid #4caf50;
+padding: 15px;
+border-radius: 0 8px 8px 0;
+margin-top: 20px;
+}
+</style>
+<!-- Add this inside the <head> section after existing styles -->
+<style>
+/* Header Actions Container */
+.header-actions {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+/* COMPLETELY REVAMPED LIGHT THEME - BRIGHT WHITE VERSION */
+[data-theme="light"] {
+--dark-bg: #ffffff;
+--darker-bg: #f8f9fa;
+--card-bg: #ffffff;
+--text-light: #1a1a1a;
+--text-gray: #555555;
+--border-color: #e0e0e0;
+--red-primary: #c62828;
+--red-secondary: #b71c1c;
+}
+
+/* Light theme specific adjustments */
+[data-theme="light"] body {
+background-color: var(--dark-bg);
+color: var(--text-light);
+}
+[data-theme="light"] header {
+background: rgba(255, 255, 255, 0.92);
+border-bottom: 1px solid var(--border-color);
+box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+backdrop-filter: blur(10px);
+}
+[data-theme="light"] nav a {
+color: #2d2d2d;
+}
+[data-theme="light"] nav a:hover {
+color: var(--red-primary);
+}
+[data-theme="light"] nav a::after {
+background: var(--red-primary);
+}
+[data-theme="light"] .hero::before {
+background: radial-gradient(circle at center, rgba(198, 40, 40, 0.02) 0%, transparent 70%);
+}
+[data-theme="light"] .section-title::after {
+background: var(--red-primary);
+opacity: 0.9;
+}
+[data-theme="light"] .mod-card {
+border: 1px solid var(--border-color);
+box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+}
+[data-theme="light"] .mod-card:hover {
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+[data-theme="light"] .faq-item {
+box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+border-color: var(--border-color);
+}
+[data-theme="light"] .bundle-card.popular::before {
+border-color: transparent var(--red-primary) transparent transparent;
+opacity: 0.95;
+}
+[data-theme="light"] .mod-modal-header {
+background: linear-gradient(to top, rgba(0,0,0,0.6), transparent), url('https://images.unsplash.com/photo-1595055378801-4818b579b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+}
+[data-theme="light"] .affiliate-cta {
+background: linear-gradient(135deg, var(--red-primary), #d32f2f);
+box-shadow: 0 8px 25px rgba(198, 40, 40, 0.2);
+}
+[data-theme="light"] .logo-text {
+background: linear-gradient(to right, #c62828, #e65100);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .section-title h2 {
+background: linear-gradient(to right, #c62828, #e65100);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+[data-theme="light"] .mod-modal-title {
+background: linear-gradient(to right, #c62828, #d32f2f);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+[data-theme="light"] .mod-modal-body p {
+color: #424242;
+}
+[data-theme="light"] .contact-modal-content,
+[data-theme="light"] .support-modal-content {
+box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+background: white;
+}
+[data-theme="light"] .cookie-consent {
+background: rgba(255, 255, 255, 0.98);
+box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+border-top: 1px solid var(--border-color);
+}
+[data-theme="light"] .cookie-content p {
+color: #212529;
+}
+[data-theme="light"] #cookie-accept {
+background: var(--red-primary);
+}
+[data-theme="light"] #cookie-decline {
+background: #f1f3f5;
+color: #212529;
+border-color: #adb5bd;
+}
+[data-theme="light"] .brands,
+[data-theme="light"] .bundles,
+[data-theme="light"] .faq-section,
+[data-theme="light"] .features {
+background-color: var(--darker-bg);
+}
+[data-theme="light"] .brand-card,
+[data-theme="light"] .feature-card {
+background: white;
+border: 1px solid var(--border-color);
+box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+[data-theme="light"] .brand-card:hover,
+[data-theme="light"] .feature-card:hover {
+box-shadow: 0 5px 15px rgba(198, 40, 40, 0.15);
+border-color: var(--red-primary);
+}
+[data-theme="light"] .bundle-header {
+background: rgba(245, 245, 245, 0.6);
+}
+[data-theme="light"] .bundle-card {
+box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+[data-theme="light"] .bundle-card.popular {
+box-shadow: 0 6px 20px rgba(198, 40, 40, 0.25);
+}
+[data-theme="light"] .footer-col h4::after {
+background: var(--red-primary);
+}
+[data-theme="light"] footer {
+background: #fafafa;
+border-top: 1px solid var(--border-color);
+color: var(--text-light);
+}
+[data-theme="light"] .footer-col p,
+[data-theme="light"] .footer-col a {
+color: #424242;
+}
+[data-theme="light"] .social-links a {
+background: #f5f5f5;
+color: #333;
+}
+[data-theme="light"] .social-links a:hover {
+background: var(--red-primary);
+}
+[data-theme="light"] .copyright {
+color: #666;
+border-top-color: var(--border-color);
+}
+</style>
+<!-- Plausible Analytics (privacy-friendly) -->
+<script defer data-domain="agrimods.com" src="https://plausible.io/js/script.js"></script>
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Store",
+"name": "AgriMods",
+"description": "Premium Farming Simulator mods for FS22 & FS25 — IMT, IMR, Tomo Vinkovic, Tafe & more.",
+"url": "https://agrimods.com",
+"logo": "https://agrimods.com/logo.png",
+"sameAs": [
+"https://discord.gg/agrimods",
+"https://youtube.com/@agrimods"
+],
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://agrimods.com/#mods",
+"query-input": "required name=search_term"
+}
+}
+</script>
+<!-- Dark/Light Mode CSS - BASE VARIABLES -->
+<style>
+:root {
+--dark-bg: #121212;
+--darker-bg: #0a0a0a;
+--card-bg: #1a1a1a;
+--red-primary: #d32f2f;
+--red-secondary: #b71c1c;
+--text-light: #f5f5f5;
+--text-gray: #b0b0b0;
+--border-color: #333;
+--transition: all 0.3s ease;
+}
+/* Light theme base variables (will be overridden by enhanced styles above) */
+[data-theme="light"] {
+--dark-bg: #ffffff;
+--darker-bg: #f8f9fa;
+--card-bg: #ffffff;
+--text-light: #1a1a1a;
+--text-gray: #555555;
+--border-color: #e0e0e0;
+--red-primary: #c62828;
+--red-secondary: #b71c1c;
+}
+.theme-toggle {
+background: none;
+border: none;
+color: var(--text-light);
+font-size: 1.2rem;
+cursor: pointer;
+margin-left: 15px;
+transition: var(--transition);
+}
+.theme-toggle:hover {
+color: var(--red-primary);
+transform: rotate(20deg);
+}
+</style>
+<style>
+/* Contact Modal */
+.contact-modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.9);
+z-index: 3000;
+justify-content: center;
+align-items: center;
+opacity: 0;
+transition: opacity 0.4s ease;
+}
+.contact-modal.active {
+display: flex;
+opacity: 1;
+}
+.contact-modal-content {
+background: var(--card-bg);
+width: 90%;
+max-width: 600px;
+border-radius: 16px;
+overflow: hidden;
+transform: scale(0.9);
+opacity: 0;
+transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+}
+.contact-modal.active .contact-modal-content {
+transform: scale(1);
+opacity: 1;
+}
+.contact-modal-header {
+background: var(--red-primary);
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.contact-modal-header h2 {
+font-size: 1.6rem;
+font-weight: 700;
+color: white;
+}
+.close-contact-modal {
+background: rgba(0,0,0,0.3);
+color: white;
+width: 36px;
+height: 36px;
+border-radius: 50%;
+border: none;
+font-size: 1.2rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: var(--transition);
+}
+.close-contact-modal:hover {
+background: rgba(0,0,0,0.6);
+transform: rotate(90deg);
+}
+.contact-modal-body {
+padding: 25px;
+}
+.form-group {
+margin-bottom: 20px;
+}
+.form-group label {
+display: block;
+margin-bottom: 6px;
+font-weight: 500;
+color: var(--text-light);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+width: 100%;
+padding: 12px 15px;
+background: rgba(255,255,255,0.05);
+border: 1px solid var(--border-color);
+border-radius: 8px;
+color: var(--text-light);
+font-size: 1rem;
+transition: var(--transition);
+}
+[data-theme="light"] .form-group input,
+[data-theme="light"] .form-group select,
+[data-theme="light"] .form-group textarea {
+background: white;
+color: #333;
+border-color: #ddd;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+outline: none;
+border-color: var(--red-primary);
+background: rgba(211, 47, 47, 0.05);
+}
+[data-theme="light"] .form-group input:focus,
+[data-theme="light"] .form-group select:focus,
+[data-theme="light"] .form-group textarea:focus {
+background: #fff9f9;
+border-color: var(--red-primary);
+}
+.contact-submit-btn {
+width: 100%;
+padding: 14px;
+background: var(--red-primary);
+color: white;
+border: none;
+border-radius: 8px;
+font-weight: 600;
+font-size: 1.1rem;
+cursor: pointer;
+transition: var(--transition);
+margin-top: 10px;
+}
+.contact-submit-btn:hover {
+background: var(--red-secondary);
+transform: translateY(-2px);
+}
+.contact-success,
+.contact-error {
+padding: 15px;
+border-radius: 8px;
+margin-top: 15px;
+display: none;
+}
+.contact-success {
+background: rgba(76, 175, 80, 0.2);
+border-left: 4px solid #4caf50;
+color: #4caf50;
+}
+.contact-error {
+background: rgba(211, 47, 47, 0.2);
+border-left: 4px solid var(--red-primary);
+color: var(--red-primary);
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: 'Roboto', sans-serif;
+background: var(--dark-bg);
+color: var(--text-light);
+line-height: 1.6;
+overflow-x: hidden;
+}
+h1, h2, h3, h4, h5 {
+font-family: 'Montserrat', sans-serif;
+font-weight: 700;
+}
+.container {
+width: 90%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 15px;
+}
+/* Header Styles */
+header {
+background: rgba(10, 10, 10, 0.95);
+backdrop-filter: blur(10px);
+position: fixed;
+width: 100%;
+top: 0;
+z-index: 1000;
+padding: 15px 0;
+border-bottom: 1px solid var(--red-primary);
+box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+.header-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.logo {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+.logo-icon {
+color: var(--red-primary);
+font-size: 28px;
+}
+.logo-text {
+font-size: 24px;
+font-weight: 800;
+background: linear-gradient(to right, #ff4d4d, #ff8c00);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+letter-spacing: -0.5px;
+}
+nav ul {
+display: flex;
+list-style: none;
+gap: 30px;
+}
+nav a {
+color: var(--text-light);
+text-decoration: none;
+font-weight: 500;
+font-size: 16px;
+position: relative;
+padding: 5px 0;
+transition: var(--transition);
+}
+nav a:hover {
+color: var(--red-primary);
+}
+nav a::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 0;
+height: 2px;
+background: var(--red-primary);
+transition: var(--transition);
+}
+nav a:hover::after {
+width: 100%;
+}
+.cta-button {
+background: var(--red-primary);
+color: white;
+border: none;
+padding: 10px 25px;
+border-radius: 30px;
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+text-transform: uppercase;
+letter-spacing: 1px;
+font-size: 14px;
+box-shadow: 0 4px 15px rgba(211, 47, 47, 0.4);
+}
+.cta-button:hover {
+background: var(--red-secondary);
+transform: translateY(-3px);
+box-shadow: 0 6px 20px rgba(211, 47, 47, 0.6);
+}
+/* Hero Section */
+.hero {
+height: 100vh;
+display: flex;
+align-items: center;
+position: relative;
+overflow: hidden;
+padding-top: 80px;
+}
+.hero::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle at center, rgba(211, 47, 47, 0.1) 0%, transparent 70%);
+z-index: -1;
+}
+.hero-content {
+max-width: 650px;
+animation: fadeInUp 1s ease-out;
+}
+.hero h1 {
+font-size: 3.5rem;
+margin-bottom: 20px;
+line-height: 1.2;
+}
+.hero p {
+font-size: 1.2rem;
+margin-bottom: 30px;
+color: var(--text-gray);
+}
+.hero-buttons {
+display: flex;
+gap: 20px;
+}
+.secondary-button {
+background: transparent;
+color: var(--text-light);
+border: 2px solid var(--red-primary);
+padding: 10px 25px;
+border-radius: 30px;
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+text-transform: uppercase;
+letter-spacing: 1px;
+font-size: 14px;
+}
+.secondary-button:hover {
+background: rgba(211, 47, 47, 0.1);
+transform: translateY(-3px);
+}
+/* Brands Section */
+.brands {
+padding: 80px 0;
+background: var(--darker-bg);
+}
+.section-title {
+text-align: center;
+margin-bottom: 50px;
+position: relative;
+}
+.section-title h2 {
+font-size: 2.5rem;
+display: inline-block;
+background: linear-gradient(to right, #ff4d4d, #ff8c00);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
+.section-title::after {
+content: '';
+position: absolute;
+bottom: -15px;
+left: 50%;
+transform: translateX(-55%);
+width: 100px;
+height: 4px;
+background: var(--red-primary);
+border-radius: 2px;
+}
+.brands-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+gap: 30px;
+}
+.brand-card {
+background: var(--card-bg);
+border-radius: 10px;
+padding: 25px 0;
+text-align: center;
+transition: var(--transition);
+border: 1px solid var(--border-color);
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.brand-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 10px 25px rgba(211, 47, 47, 0.3);
+border-color: var(--red-primary);
+}
+.brand-icon {
+font-size: 4rem;
+margin-bottom: 15px;
+color: var(--red-primary);
+}
+.brand-card h3 {
+font-size: 1.3rem;
+font-weight: 600;
+}
+/* Mods Section */
+.mods {
+padding: 80px 0;
+}
+.mods-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 30px;
+}
+.mod-card {
+background: var(--card-bg);
+border-radius: 12px;
+overflow: hidden;
+transition: var(--transition);
+border: 1px solid var(--border-color);
+position: relative;
+height: 100%;
+display: flex;
+flex-direction: column;
+cursor: pointer;
+}
+.mod-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+border-color: var(--red-primary);
+}
+.mod-image {
+height: 180px;
+background-size: cover;
+background-position: center;
+display: flex;
+align-items: center;
+justify-content: center;
+color: var(--red-primary);
+font-size: 3rem;
+position: relative;
+overflow: hidden;
+}
+.mod-image::after {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+.mod-content {
+padding: 20px;
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+}
+.mod-content h3 {
+font-size: 1.4rem;
+margin-bottom: 10px;
+}
+.mod-content p {
+color: var(--text-gray);
+margin-bottom: 15px;
+flex-grow: 1;
+}
+.mod-meta {
+display: flex;
+justify-content: space-between;
+color: var(--text-gray);
+font-size: 0.9rem;
+margin-top: 10px;
+}
+.price {
+color: #ffcc00;
+font-weight: 700;
+font-size: 1.2rem;
+}
+/* Mod Modal */
+.mod-modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.9);
+z-index: 2000;
+justify-content: center;
+align-items: center;
+opacity: 0;
+transition: opacity 0.4s ease;
+}
+.mod-modal.active {
+display: flex;
+opacity: 1;
+}
+.mod-modal-content {
+background: var(--card-bg);
+width: 90%;
+max-width: 800px;
+border-radius: 16px;
+overflow: hidden;
+transform: scale(0.8);
+opacity: 0;
+transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+animation: modalBounceIn 0.6s forwards;
+}
+.mod-modal.active .mod-modal-content {
+transform: scale(1);
+opacity: 1;
+}
+.mod-modal-header {
+position: relative;
+height: 300px;
+background-size: cover;
+background-position: center;
+display: flex;
+align-items: flex-end;
+padding: 20px;
+background: linear-gradient(to top, rgba(0,0,0,0.9), transparent), url('https://images.unsplash.com/photo-1595055378801-4818b579b43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+}
+.mod-modal-title {
+font-size: 2.2rem;
+font-weight: 800;
+background: linear-gradient(to right, #ff4d4d, #ffcc00);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.close-modal {
+position: absolute;
+top: 20px;
+right: 20px;
+background: rgba(0,0,0,0.6);
+color: white;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+font-size: 1.2rem;
+border: none;
+transition: var(--transition);
+}
+.close-modal:hover {
+background: var(--red-primary);
+transform: rotate(90deg);
+}
+.mod-modal-body {
+padding: 30px;
+}
+.mod-modal-body p {
+font-size: 1.1rem;
+margin-bottom: 20px;
+color: var(--text-gray);
+}
+.mod-details {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 15px;
+margin: 25px 0;
+}
+.detail-item {
+background: rgba(255,255,255,0.05);
+padding: 12px;
+border-radius: 8px;
+text-align: center;
+}
+[data-theme="light"] .detail-item {
+background: #f9f9f9;
+}
+.detail-item span {
+display: block;
+font-size: 0.9rem;
+color: var(--text-gray);
+}
+.detail-item strong {
+font-size: 1.3rem;
+color: #ffcc00;
+}
+.modal-buttons {
+display: flex;
+gap: 15px;
+margin-top: 20px;
+}
+.modal-download {
+flex: 1;
+padding: 14px;
+font-size: 1.1rem;
+border-radius: 8px;
+background: var(--red-primary);
+color: white;
+border: none;
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+}
+.modal-download:hover {
+background: var(--red-secondary);
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(211, 47, 47, 0.5);
+}
+.modal-preview {
+flex: 1;
+padding: 14px;
+font-size: 1.1rem;
+border-radius: 8px;
+background: transparent;
+color: var(--text-light);
+border: 2px solid var(--red-primary);
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+}
+.modal-preview:hover {
+background: rgba(211, 47, 47, 0.1);
+}
+/* FAQ Section */
+.faq-section {
+padding: 80px 0;
+background: var(--darker-bg);
+}
+.faq-container {
+max-width: 800px;
+margin: 0 auto;
+}
+.faq-item {
+background: var(--card-bg);
+border-radius: 12px;
+overflow: hidden;
+margin-bottom: 15px;
+border: 1px solid var(--border-color);
+transition: var(--transition);
+}
+.faq-item:hover {
+border-color: var(--red-primary);
+}
+.faq-question {
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+cursor: pointer;
+font-weight: 600;
+font-size: 1.2rem;
+transition: var(--transition);
+}
+.faq-question:hover {
+color: var(--red-primary);
+}
+.faq-toggle {
+font-size: 1.5rem;
+font-weight: bold;
+transition: transform 0.3s ease;
+}
+.faq-answer {
+padding: 0 20px;
+max-height: 0;
+overflow: hidden;
+background: rgba(0,0,0,0.2);
+transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-answer code {
+background: rgba(255,255,255,0.1);
+padding: 2px 6px;
+border-radius: 4px;
+font-family: monospace;
+}
+.faq-item.active .faq-toggle {
+transform: rotate(45deg);
+}
+.faq-item.active .faq-answer {
+padding: 15px 20px;
+max-height: 300px;
+}
+.faq-contact-btn {
+background: var(--red-primary);
+color: white;
+border: none;
+padding: 6px 14px;
+border-radius: 6px;
+font-weight: 600;
+cursor: pointer;
+transition: var(--transition);
+margin-left: 8px;
+font-size: 0.95rem;
+}
+.faq-contact-btn:hover {
+background: var(--red-secondary);
+transform: translateY(-2px);
+}
+/* Support Ticket Modal */
+.support-modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.9);
+z-index: 3000;
+justify-content: center;
+align-items: center;
+opacity: 0;
+transition: opacity 0.4s ease;
+}
+.support-modal.active {
+display: flex;
+opacity: 1;
+}
+.support-modal-content {
+background: var(--card-bg);
+width: 90%;
+max-width: 600px;
+border-radius: 16px;
+overflow: hidden;
+transform: scale(0.9);
+opacity: 0;
+transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+}
+.support-modal.active .support-modal-content {
+transform: scale(1);
+opacity: 1;
+}
+.support-modal-header {
+background: var(--red-primary);
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.support-modal-header h2 {
+font-size: 1.6rem;
+font-weight: 700;
+color: white;
+}
+.close-support-modal {
+background: rgba(0,0,0,0.3);
+color: white;
+width: 36px;
+height: 36px;
+border-radius: 50%;
+border: none;
+font-size: 1.2rem;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: var(--transition);
+}
+.close-support-modal:hover {
+background: rgba(0,0,0,0.6);
+transform: rotate(90deg);
+}
+.support-modal-body {
+padding: 25px;
+}
+.form-group {
+margin-bottom: 20px;
+}
+.form-group label {
+display: block;
+margin-bottom: 6px;
+font-weight: 500;
+color: var(--text-light);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+width: 100%;
+padding: 12px 15px;
+background: rgba(255,255,255,0.05);
+border: 1px solid var(--border-color);
+border-radius: 8px;
+color: var(--text-light);
+font-size: 1rem;
+transition: var(--transition);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+outline: none;
+border-color: var(--red-primary);
+background: rgba(211, 47, 47, 0.05);
+}
+.support-success {
+text-align: center;
+padding: 20px 0;
+}
+.success-icon {
+font-size: 4rem;
+color: #4caf50;
+margin-bottom: 15px;
+}
+.support-success h3 {
+font-size: 1.5rem;
+margin-bottom: 10px;
+}
+/* Features Section */
+.features {
+padding: 80px 0;
+background: var(--darker-bg);
+}
+.features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 40px;
+}
+.feature-card {
+text-align: center;
+padding: 30px;
+background: var(--card-bg);
+border-radius: 12px;
+transition: var(--transition);
+border: 1px solid var(--border-color);
+}
+.feature-card:hover {
+transform: translateY(-5px);
+border-color: var(--red-primary);
+}
+.feature-icon {
+font-size: 3rem;
+color: var(--red-primary);
+margin-bottom: 20px;
+}
+.feature-card h3 {
+font-size: 1.5rem;
+margin-bottom: 15px;
+}
+/* Footer */
+footer {
+background: #080808;
+padding: 60px 0 30px;
+border-top: 1px solid var(--border-color);
+}
+.footer-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 40px;
+margin-bottom: 40px;
+}
+.footer-col h4 {
+font-size: 1.3rem;
+margin-bottom: 20px;
+color: var(--red-primary);
+position: relative;
+padding-bottom: 10px;
+}
+.footer-col h4::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 0;
+width: 50px;
+height: 2px;
+background: var(--red-primary);
+}
+.footer-col p, .footer-col a {
+color: var(--text-gray);
+margin-bottom: 10px;
+display: block;
+text-decoration: none;
+transition: var(--transition);
+}
+.footer-col a:hover {
+color: var(--red-primary);
+padding-left: 5px;
+}
+.social-links {
+display: flex;
+gap: 15px;
+margin-top: 20px;
+}
+.social-links a {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+background: var(--card-bg);
+color: var(--text-light);
+transition: var(--transition);
+}
+.social-links a:hover {
+background: var(--red-primary);
+transform: translateY(-3px);
+}
+.copyright {
+text-align: center;
+padding-top: 30px;
+border-top: 1px solid var(--border-color);
+color: var(--text-gray);
+font-size: 0.9rem;
+}
+/* Animations */
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(30px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+@keyframes modalBounceIn {
+0% {
+transform: scale(0.7);
+opacity: 0;
+}
+50% {
+transform: scale(1.05);
+}
+100% {
+transform: scale(1);
+opacity: 1;
+}
+}
+@keyframes slideUp {
+from {
+transform: translateY(50px);
+opacity: 0;
+}
+to {
+transform: translateY(0);
+opacity: 1;
+}
+}
+.animate-on-scroll {
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.animate-on-scroll.appear {
+opacity: 1;
+transform: translateY(0);
+}
+/* Responsive Design */
+@media (max-width: 992px) {
+.hero h1 {
+font-size: 2.8rem;
+}
+}
+@media (max-width: 768px) {
+nav ul {
+display: none;
+}
+.hero h1 {
+font-size: 2.2rem;
+}
+.hero-buttons {
+flex-direction: column;
+gap: 15px;
+}
+.hero-buttons .cta-button,
+.hero-buttons .secondary-button {
+width: 100%;
+text-align: center;
+}
+.mod-modal-content {
+width: 95%;
+}
+.mod-modal-header {
+height: 220px;
+}
+.modal-buttons {
+flex-direction: column;
+}
+}
+@media (max-width: 480px) {
+.hero h1 {
+font-size: 1.8rem;
+}
+.section-title h2 {
+font-size: 2rem;
+}
+}
+</style>
+</head>
+<body>
+<!-- Header -->
+<header>
+<div class="container header-container">
+<div class="logo">
+<i class="fas fa-tractor logo-icon"></i>
+<div class="logo-text">AgriMods</div>
+</div>
+<nav>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#mods">Mods</a></li>
+<li><a href="#brands">Brands</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+<div class="header-actions">
+<button class="theme-toggle" aria-label="Toggle theme">
+<i class="fas fa-moon"></i>
+</button>
+</div>
+<button class="cta-button">Download Now</button>
+</div>
+</header>
+<!-- Cookie Consent Banner (hidden by default) -->
+<div id="cookie-consent" class="cookie-consent" style="display:none;">
+<div class="cookie-content">
+<p>🍪 We use cookies to enhance your experience. By continuing, you agree to our <a href="/privacy" target="_blank">Privacy Policy</a>.</p>
+<div class="cookie-buttons">
+<button id="cookie-accept">Accept All</button>
+<button id="cookie-decline">Decline</button>
+</div>
+</div>
+</div>
+<!-- Hero Section -->
+<section class="hero" id="home">
+<div class="container hero-content">
+<h1>Premium Farming Simulator Mods</h1>
+<p>Experience the ultimate farming simulation with our professionally crafted mods featuring top agricultural brands. Enhance your gameplay with realistic machinery, authentic sounds, and detailed textures.</p>
+<div class="hero-buttons">
+<button class="cta-button">Browse Mods</button>
+<button class="secondary-button">Learn More</button>
+</div>
+</div>
+</section>
+<!-- Brands Section -->
+<section class="brands" id="brands">
+<div class="container">
+<div class="section-title">
+<h2>Featured Brands</h2>
+</div>
+<div class="brands-grid">
+<div class="brand-card animate-on-scroll">
+<div class="brand-icon">
+<i class="fas fa-industry"></i>
+</div>
+<h3>IMT</h3>
+</div>
+<div class="brand-card animate-on-scroll">
+<div class="brand-icon">
+<i class="fas fa-seedling"></i>
+</div>
+<h3>IMR</h3>
+</div>
+<div class="brand-card animate-on-scroll">
+<div class="brand-icon">
+<i class="fas fa-wheat-awn"></i>
+</div>
+<h3>Tomo Vinkovic</h3>
+</div>
+<div class="brand-card animate-on-scroll">
+<div class="brand-icon">
+<i class="fas fa-plug"></i>
+</div>
+<h3>Tafe</h3>
+</div>
+<div class="brand-card animate-on-scroll">
+<div class="brand-icon">
+<i class="fas fa-tractor"></i>
+</div>
+<h3>Zmaj</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Mods Section -->
+<section class="mods" id="mods">
+<div class="container">
+<div class="section-title">
+<h2>Premium Mods Collection</h2>
+</div>
+<div class="mods-grid">
+<!-- Mod 1 -->
+<div class="mod-card animate-on-scroll" data-mod="1">
+<div class="mod-image" style="background-image: url('https://i.pinimg.com/1200x/17/ab/0d/17ab0d8e9d37c38c17bf662f7849d74f.jpg');">
+</div>
+<div class="mod-content">
+<h3>IMT 539</h3>
+<p>Experience the power and precision of the latest IMT 539 with realistic engine sounds and detailed interior.</p>
+<div class="mod-meta">
+<span>FS22</span>
+<span class="price">$89.99</span>
+</div>
+</div>
+</div>
+<!-- Mod 2 -->
+<div class="mod-card animate-on-scroll" data-mod="2">
+<div class="mod-image" style="background-image: url('https://i.pinimg.com/1200x/aa/fa/76/aafa76bd276e0e37698f7052600e0bcb.jpg');">
+</div>
+<div class="mod-content">
+<h3>IMR Rakovica</h3>
+<p>Authentic IMR Rakoivca 65 with advanced features, realistic suspension, and detailed engine compartment.</p>
+<div class="mod-meta">
+<span>FS22</span>
+<span class="price">$64.99</span>
+</div>
+</div>
+</div>
+<!-- Mod 3 -->
+<div class="mod-card animate-on-scroll" data-mod="3">
+<div class="mod-image" style="background-image: url('https://fs22.com/wp-content/uploads/2024/05/TOMO-VINKOVIC-418-V1.0-768x432.webp');">
+</div>
+<div class="mod-content">
+<h3>Tomo Vinkovic 800 Series</h3>
+<p>Yugoslavian engineering at its finest with the Tomo Vinkovic featuring realistic cab controls and smooth animations.</p>
+<div class="mod-meta">
+<span>FS22</span>
+<span class="price">$64.99</span>
+</div>
+</div>
+</div>
+<!-- Mod 4 -->
+<div class="mod-card animate-on-scroll" data-mod="4">
+<div class="mod-image" style="background-image: url('https://farmingsimulator22mods.com/wp-content/uploads/2024/06/tafe-42-v1.0-fs22-1.jpg');">
+</div>
+<div class="mod-content">
+<h3>Tafe di 42</h3>
+<p>Classic Indian workhorse with authentic sounds, detailed textures, and realistic performance characteristics.</p>
+<div class="mod-meta">
+<span>FS22</span>
+<span class="price">$64.99</span>
+</div>
+</div>
+</div>
+<!-- Mod 5 -->
+<div class="mod-card animate-on-scroll" data-mod="5">
+<div class="mod-image" style="background-image: url('https://i.pinimg.com/1200x/cf/1d/7e/cf1d7e8df1fdba580b0a86c6760a590e.jpg');">
+</div>
+<div class="mod-content">
+<h3>IMT 558</h3>
+<p>Powerful and versatile IMT tractor with realistic PTO and detailed hydraulics system.</p>
+<div class="mod-meta">
+<span>FS22</span>
+<span class="price">$90.00</span>
+</div>
+</div>
+</div>
+<!-- Mod 6 -->
+<div class="mod-card animate-on-scroll" data-mod="6">
+<div class="mod-image" style="background-image: url('https://i.pinimg.com/1200x/ee/21/dc/ee21dc2a0c906f6d54502e01c986d04b.jpg');">
+</div>
+<div class="mod-content">
+<h3>IMT 549 P</h3>
+<p>Powerful articulated tractor with realistic weight distribution and authentic engine sounds.</p>
+<div class="mod-meta">
+<span>FS22</span>
+<span class="price">$70.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bundles Section -->
+<section class="bundles" id="bundles">
+<div class="container">
+<div class="section-title">
+<h2>Special Offers & Bundles</h2>
+</div>
+<p style="text-align: center; max-width: 700px; margin: 0 auto 40px; color: var(--text-gray);">
+Save up to 30% with curated bundles. All mods include lifetime updates and premium support.
+</p>
+<div class="bundle-grid">
+<!-- Balkan Pack -->
+<div class="bundle-card">
+<div class="bundle-header">
+<h3>Balkan Farming Pack</h3>
+<div>
+<span class="bundle-price">$299.99</span>
+<span class="bundle-old-price">$384.95</span>
+</div>
+<span class="bundle-savings">Save $84.96 (22%)</span>
+</div>
+<div class="bundle-features">
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>IMT 539, 549P, 558</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>IMR Rakovica 65</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>Tomo Vinković 800 Series</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>Tafe di 42</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-gift"></i>
+<span><strong>BONUS:</strong> Zmaj 143 Preview (coming Q1 2026)</span>
+</div>
+</div>
+<button class="bundle-btn" onclick="initPayPalBundle('balkan')">
+<i class="fas fa-shopping-cart"></i> Get Balkan Pack
+</button>
+</div>
+<!-- Popular: All-Access Pass -->
+<div class="bundle-card popular">
+<div class="bundle-badge">MOST POPULAR</div>
+<div class="bundle-header">
+<h3>All-Access Pass</h3>
+<div>
+<span class="bundle-price">$9.99/mo</span>
+</div>
+<span class="bundle-savings">All Mods + Early Access</span>
+</div>
+<div class="bundle-features">
+<div class="bundle-feature">
+<i class="fas fa-infinity"></i>
+<span>Unlimited mod downloads</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-bolt"></i>
+<span>Early access (2 weeks before public)</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-headset"></i>
+<span>Priority support</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-sync-alt"></i>
+<span>Free updates for life</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-gift"></i>
+<span>Exclusive Discord role</span>
+</div>
+</div>
+<button class="bundle-btn" style="background: #ffcc00; color: #121212;" onclick="initStripeSubscription()">
+<i class="fas fa-crown"></i> Subscribe Now
+</button>
+</div>
+<!-- Premium Collection -->
+<div class="bundle-card">
+<div class="bundle-header">
+<h3>Premium Collection</h3>
+<div>
+<span class="bundle-price">$199.99</span>
+<span class="bundle-old-price">$244.97</span>
+</div>
+<span class="bundle-savings">Save $44.98 (18%)</span>
+</div>
+<div class="bundle-features">
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>IMT 539 & 558</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>IMR Rakovica 65</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>Tomo Vinković 800 Series</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-check-circle"></i>
+<span>Tafe di 42</span>
+</div>
+<div class="bundle-feature">
+<i class="fas fa-download"></i>
+<span>Installation guide + video tutorials</span>
+</div>
+</div>
+<button class="bundle-btn" onclick="initPayPalBundle('premium')">
+<i class="fas fa-box-open"></i> Get Premium Pack
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="features" id="features">
+<div class="container">
+<div class="section-title">
+<h2>Why Choose AgriMods?</h2>
+</div>
+<div class="features-grid">
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-check-circle"></i>
+</div>
+<h3>Premium Quality</h3>
+<p>All mods are professionally developed with attention to detail, realistic sounds, and accurate specifications.</p>
+</div>
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-sync-alt"></i>
+</div>
+<h3>Regular Updates</h3>
+<p>We continuously update our mods to ensure compatibility with the latest game versions and patches.</p>
+</div>
+<div class="feature-card animate-on-scroll">
+<div class="feature-icon">
+<i class="fas fa-headset"></i>
+</div>
+<h3>24/7 Support</h3>
+<p>Our dedicated support team is always ready to assist with installation or any technical issues.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Affiliate Program -->
+<section class="affiliate-section" id="affiliate">
+<div class="container">
+<div class="affiliate-cta">
+<h2>💰 Earn 20% Commission</h2>
+<p>Join our affiliate program! Share your unique link and earn 20% on every sale — paid monthly via PayPal.</p>
+<button class="affiliate-btn" id="open-affiliate-modal">
+<i class="fas fa-user-plus"></i> Join Free Today
+</button>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="faq-section" id="faq">
+<div class="container">
+<div class="section-title">
+<h2>Frequently Asked Questions</h2>
+</div>
+<div class="faq-container">
+<!-- FAQ 1 -->
+<div class="faq-item">
+<div class="faq-question">
+<h3>How do I install a mod?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>Download the mod (`.zip` file), extract it, and place the folder in your <code>Documents/My Games/FarmingSimulator2022/mods/</code> directory. Launch the game — the mod will appear in the store or equipment shop.</p>
+</div>
+</div>
+<!-- FAQ 2 -->
+<div class="faq-item">
+<div class="faq-question">
+<h3>Are mods compatible with multiplayer?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>Yes! All our mods are tested for multiplayer sync. Both host and clients must have the same mod version installed.</p>
+</div>
+</div>
+<!-- FAQ 3 -->
+<div class="faq-item">
+<div class="faq-question">
+<h3>What if a mod doesn’t work?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>First, check for game/mod updates. Clear your log file (`log.txt`) and reproduce the issue. Then, feel free to <button class="faq-contact-btn">Contact Support</button> — we’ll help you resolve it quickly!</p>
+</div>
+</div>
+<!-- FAQ 4 -->
+<div class="faq-item">
+<div class="faq-question">
+<h3>Can I request a custom mod?</h3>
+<span class="faq-toggle">+</span>
+</div>
+<div class="faq-answer">
+<p>Absolutely! We take custom requests for tractors, implements, or full map mods. Just <button class="faq-contact-btn">open a support ticket</button>, and our team will get back to you within 24–48 hours.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer id="contact">
+<div class="container">
+<div class="footer-grid">
+<div class="footer-col">
+<h4>AgriMods</h4>
+<p>Premium Farming Simulator mods featuring authentic agricultural machinery from top global brands.</p>
+<div class="social-links">
+<a href="#"><i class="fab fa-discord"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+</div>
+</div>
+<div class="footer-col">
+<h4>Quick Links</h4>
+<a href="#home">Home</a>
+<a href="#mods">Mods Collection</a>
+<a href="#brands">Brands</a>
+<a href="#features">Features</a>
+<a href="#contact" rel="noopener">Contact Us</a>
+</div>
+<div class="footer-col">
+<h4>Support</h4>
+<a href="#">Installation Guide</a>
+<a href="#">FAQ</a>
+<a href="#">Troubleshooting</a>
+<a href="#">Submit a Ticket</a>
+<a href="#">Community Forum</a>
+</div>
+<div class="footer-col">
+<h4>Contact Us</h4>
+<p><i class="fas fa-envelope"></i> support@agrimods.com</p>
+<p><i class="fas fa-map-marker-alt"></i> Agricultural Modding HQ</p>
+<p><i class="fas fa-phone"></i> coming soon!!!</p>
+</div>
+</div>
+<div class="copyright">
+<p>&copy; 2026 AgriMods. All rights reserved. Farming Simulator is a registered trademark of GIANTS Software GmbH.</p>
+</div>
+</div>
+</footer>
+<!-- Mod Modals (Hidden by default) -->
+<div class="mod-modal" id="mod-modal-1">
+<div class="mod-modal-content">
+<div class="mod-modal-header" style="background-image: url('https://i.pinimg.com/736x/17/ab/0d/17ab0d8e9d37c38c17bf662f7849d74f.jpg');">
+<button class="close-modal">&times;</button>
+<h2 class="mod-modal-title">IMT 539</h2>
+</div>
+<div class="mod-modal-body">
+<p>The IMT 539 mod brings unparalleled realism to Farming Simulator 22, featuring a fully interactive cab, dynamic steering, and authentic engine sounds recorded from real machines.</p>
+<div class="mod-details">
+<div class="detail-item">
+<strong>FS22</strong>
+<span>Compatible</span>
+</div>
+<div class="detail-item">
+<strong>4K Textures</strong>
+<span>Ultra HD</span>
+</div>
+<div class="detail-item">
+<strong>Dynamic Steering</strong>
+<span>Real Physics</span>
+</div>
+<div class="detail-item">
+<strong>M 33/T 3-cylinder Diesel™</strong>
+<span>39 HP (29.1 kW)</span>
+</div>
+</div>
+<div class="modal-buttons">
+<button class="modal-download"><i class="fas fa-download"></i> Download ($89.99)</button>
+<button class="modal-preview"><i class="fas fa-eye"></i> Preview Video</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mod-modal" id="mod-modal-2">
+<div class="mod-modal-content">
+<div class="mod-modal-header" style="background-image: url('https://www.kingmods.net/uploads/fs22/mods/rakovica-6576-fs22-1-2.jpg');">
+<button class="close-modal">&times;</button>
+<h2 class="mod-modal-title">IMR Rakovica 65</h2>
+</div>
+<div class="mod-modal-body">
+<p>The IMR Rakovica 65 delivers exceptional versatility and performance. Features include realistic suspension, PTO animation, and a fully functional cab with working gauges and switches.</p>
+<div class="mod-details">
+<div class="detail-item">
+<strong>FS22</strong>
+<span>Compatible</span>
+</div>
+<div class="detail-item">
+<strong>IMR Rakovica DM34T, 3.3L (203.2 ci), 4-cylinder diesel, liquid-cooled</strong>
+<span>63-64 hp (47 kW)</span>
+</div>
+<div class="detail-item">
+<strong>Fully Animated</strong>
+<span>Cab & PTO</span>
+</div>
+<div class="detail-item">
+<strong>Multiplayer Ready</strong>
+<span>Synced</span>
+</div>
+</div>
+<div class="modal-buttons">
+<button class="modal-download"><i class="fas fa-download"></i> Download ($64.99)</button>
+<button class="modal-preview"><i class="fas fa-eye"></i> Preview Video</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mod-modal" id="mod-modal-3">
+<div class="mod-modal-content">
+<div class="mod-modal-header" style="background-image: url('https://fs22.com/wp-content/uploads/2024/05/TOMO-VINKOVIC-418-V1.0-768x432.webp');">
+<button class="close-modal">&times;</button>
+<h2 class="mod-modal-title">Tomo Vinkovic 800 Series</h2>
+</div>
+<div class="mod-modal-body">
+<p>Finnish engineering excellence in your fields. The Tomo Vinkovic 800 Series mod features smooth transmission animations, realistic hydraulics, and authentic Scandinavian design.</p>
+<div class="mod-details">
+<div class="detail-item">
+<strong>FS22</strong>
+<span>Compatible</span>
+</div>
+<div class="detail-item">
+<strong>Lombardini (Italian)</strong>
+<span>18-20 HP</span>
+</div>
+<div class="detail-item">
+<strong>Small Design</strong>
+<span>Unique Cab</span>
+</div>
+<div class="detail-item">
+<strong>V-Control™</strong>
+<span>Joystick Support</span>
+</div>
+</div>
+<div class="modal-buttons">
+<button class="modal-download"><i class="fas fa-download"></i> Download ($64.99)</button>
+<button class="modal-preview"><i class="fas fa-eye"></i> Preview Video</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mod-modal" id="mod-modal-4">
+<div class="mod-modal-content">
+<div class="mod-modal-header" style="background-image: url('https://www.farming2015mods.com/wp-content/uploads/2024/06/FS22-Tafe-42-v1-3.jpg');">
+<button class="close-modal">&times;</button>
+<h2 class="mod-modal-title">Tafe di 42</h2>
+</div>
+<div class="mod-modal-body">
+<p>A vintage icon reborn! This classic Indian tractor mod includes authentic mechanical sounds, hand-crank start animation, and meticulously crafted retro details.</p>
+<div class="mod-details">
+<div class="detail-item">
+<strong>FS22</strong>
+<span>Compatible</span>
+</div>
+<div class="detail-item">
+<strong>3-Cylinder Diesel</strong>
+<span>41 HP (36.8-43 HP range)</span>
+</div>
+<div class="detail-item">
+<strong>1960s Design</strong>
+<span>Full Authenticity</span>
+</div>
+<div class="detail-item">
+<strong>Manual Start</strong>
+<span>Crank Handle</span>
+</div>
+</div>
+<div class="modal-buttons">
+<button class="modal-download"><i class="fas fa-download"></i> Download ($64.99)</button>
+<button class="modal-preview"><i class="fas fa-eye"></i> Preview Video</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mod-modal" id="mod-modal-5">
+<div class="mod-modal-content">
+<div class="mod-modal-header" style="background-image: url('https://farmingsimulator22mods.com/wp-content/uploads/2025/09/imt-558-v1-0-0-0-fs25-2.jpg');">
+<button class="close-modal">&times;</button>
+<h2 class="mod-modal-title">IMT 558</h2>
+</div>
+<div class="mod-modal-body">
+<p>The IMT 558 combines rugged reliability with modern features. Includes realistic PTO torque, hydraulic lift animations, and a customizable livery system.</p>
+<div class="mod-details">
+<div class="detail-item">
+<strong>FS22</strong>
+<span>Compatible</span>
+</div>
+<div class="detail-item">
+<strong>IMT M34/T, 4-cylinder, diesel, liquid-cooled.</strong>
+<span>56-58 HP (43.3)</span>
+</div>
+<div class="detail-item">
+<strong>3-Point Hitch</strong>
+<span>Dynamic Lift</span>
+</div>
+<div class="detail-item">
+<strong>Livery Editor</strong>
+<span>Custom Colors</span>
+</div>
+</div>
+<div class="modal-buttons">
+<button class="modal-download"><i class="fas fa-download"></i> Download ($90.00)</button>
+<button class="modal-preview"><i class="fas fa-eye"></i> Preview Video</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mod-modal" id="mod-modal-6">
+<div class="mod-modal-content">
+<div class="mod-modal-header" style="background-image: url('https://i.pinimg.com/1200x/ee/21/dc/ee21dc2a0c906f6d54502e01c986d04b.jpg');">
+<button class="close-modal">&times;</button>
+<h2 class="mod-modal-title">IMT 549 P</h2>
+</div>
+<div class="mod-modal-body">
+<p>The ultimate articulated tractor for large-scale farming. Features include realistic articulation physics, dual-clutch transmission, and authentic JD green & yellow livery.</p>
+<div class="mod-details">
+<div class="detail-item">
+<strong>FS22</strong>
+<span>Compatible</span>
+</div>
+<div class="detail-item">
+<strong>IMR DM 33/T Diesel, 3-Cylinder, Water-Cooled™</strong>
+<span>47-49 hp (35 kW)</span>
+</div>
+<div class="detail-item">
+<strong>Articulated Frame</strong>
+<span>Real Steering</span>
+</div>
+<div class="detail-item">
+<strong>Single Clutch</strong>
+<span>Smooth Shifting</span>
+</div>
+</div>
+<div class="modal-buttons">
+<button class="modal-download"><i class="fas fa-download"></i> Download ($70.00)</button>
+<button class="modal-preview"><i class="fas fa-eye"></i> Preview Video</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Support Ticket Modal -->
+<div class="support-modal" id="support-modal">
+<div class="support-modal-content">
+<div class="support-modal-header">
+<h2>Submit a Support Request</h2>
+<button class="close-support-modal">&times;</button>
+</div>
+<div class="support-modal-body">
+<form id="support-form">
+<div class="form-group">
+<label for="support-name">Your Name</label>
+<input type="text" id="support-name" placeholder="e.g. Marko Petrović" required>
+</div>
+<div class="form-group">
+<label for="support-email">Email Address</label>
+<input type="email" id="support-email" placeholder="your@email.com" required>
+</div>
+<div class="form-group">
+<label for="support-subject">Subject</label>
+<select id="support-subject" required>
+<option value="">— Select a topic —</option>
+<option value="install">Installation Help</option>
+<option value="bug">Bug Report</option>
+<option value="request">Mod Request</option>
+<option value="payment">Payment Issue</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="form-group">
+<label for="support-message">Your Message</label>
+<textarea id="support-message" rows="5" placeholder="Describe your issue or request in detail..." required></textarea>
+</div>
+<button type="submit" class="modal-download">
+<i class="fas fa-paper-plane"></i> Send Request
+</button>
+</form>
+<div id="support-success" class="support-success" style="display: none;">
+<div class="success-icon"><i class="fas fa-check-circle"></i></div>
+<h3>Message Sent!</h3>
+<p>Thank you — our team will review your request and respond within 24–48 hours.</p>
+<button class="modal-preview" id="close-success-btn">Close</button>
+</div>
+</div>
+</div>
+</div>
+<!-- PayPal SDK (Add your Client ID here) -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_CLIENT_ID&currency=USD"></script>
+<script>
+// Animation on scroll
+document.addEventListener('DOMContentLoaded', function() {
+const animateElements = document.querySelectorAll('.animate-on-scroll');
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('appear');
+}
+});
+}, {
+threshold: 0.1
+});
+animateElements.forEach(el => {
+observer.observe(el);
+});
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function (e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+const targetElement = document.querySelector(targetId);
+window.scrollTo({
+top: targetElement.offsetTop - 80,
+behavior: 'smooth'
+});
+});
+});
+// Mod Card Click → Open Modal
+const modCards = document.querySelectorAll('.mod-card');
+const modModals = document.querySelectorAll('.mod-modal');
+const closeButtons = document.querySelectorAll('.close-modal');
+modCards.forEach(card => {
+card.addEventListener('click', () => {
+const modId = card.getAttribute('data-mod');
+const modal = document.getElementById(`mod-modal-${modId}`);
+modal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+});
+closeButtons.forEach(button => {
+button.addEventListener('click', () => {
+const modal = button.closest('.mod-modal');
+modal.classList.remove('active');
+document.body.style.overflow = '';
+});
+});
+// Close modal on outside click
+modModals.forEach(modal => {
+modal.addEventListener('click', (e) => {
+if (e.target === modal) {
+modal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+});
+// Close with Escape key
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape') {
+modModals.forEach(modal => {
+modal.classList.remove('active');
+});
+document.body.style.overflow = '';
+}
+});
+// FAQ Accordion
+document.querySelectorAll('.faq-question').forEach(question => {
+question.addEventListener('click', () => {
+const item = question.closest('.faq-item');
+item.classList.toggle('active');
+});
+});
+// Support Ticket Modal
+const faqContactButtons = document.querySelectorAll('.faq-contact-btn');
+const supportModal = document.getElementById('support-modal');
+const closeSupportModal = document.querySelector('.close-support-modal');
+const supportForm = document.getElementById('support-form');
+const supportSuccess = document.getElementById('support-success');
+const closeSuccessBtn = document.getElementById('close-success-btn');
+faqContactButtons.forEach(btn => {
+btn.addEventListener('click', () => {
+supportModal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+});
+closeSupportModal.addEventListener('click', () => {
+supportModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+supportModal.addEventListener('click', (e) => {
+if (e.target === supportModal) {
+supportModal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape' && supportModal.classList.contains('active')) {
+supportModal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+// Form submission (frontend only)
+supportForm.addEventListener('submit', (e) => {
+e.preventDefault();
+// In real use: send data via fetch() to your server
+// For now: show success message
+supportForm.style.display = 'none';
+supportSuccess.style.display = 'block';
+// Optional: log to console
+const formData = {
+name: document.getElementById('support-name').value,
+email: document.getElementById('support-email').value,
+subject: document.getElementById('support-subject').value,
+message: document.getElementById('support-message').value
+};
+console.log('Support request submitted:', formData);
+});
+closeSuccessBtn.addEventListener('click', () => {
+supportForm.reset();
+supportForm.style.display = 'block';
+supportSuccess.style.display = 'none';
+supportModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+// Initialize PayPal buttons for each mod modal
+function initPayPalButton(modId, price, description, downloadUrl) {
+if (typeof paypal !== 'undefined') {
+paypal.Buttons({
+createOrder: function(data, actions) {
+return actions.order.create({
+purchase_units: [{
+description: description,
+amount: {
+value: price,
+currency_code: 'USD'
+}
+}]
+});
+},
+onApprove: function(data, actions) {
+return actions.order.capture().then(function(details) {
+alert('Thank you, ' + details.payer.name.given_name + '! Redirecting to download...');
+window.location.href = downloadUrl;
+});
+},
+onError: function(err) {
+console.error('PayPal error:', err);
+alert('Payment failed. Please try again.');
+},
+style: {
+layout: 'horizontal',
+color: 'gold',
+shape: 'pill',
+label: 'paypal'
+}
+}).render('#paypal-button-container-' + modId);
+}
+}
+// Initialize PayPal for each mod
+initPayPalButton('1', '89.99', 'IMT 539 Mod for FS22', 'https://example.com/mods/imt539.zip');
+initPayPalButton('2', '64.99', 'IMR Rakovica 65 Mod for FS22', 'https://example.com/mods/imr_rakovica.zip');
+initPayPalButton('3', '64.99', 'Tomo Vinkovic 800 Series Mod for FS22', 'https://example.com/mods/tomo_vinkovic.zip');
+initPayPalButton('4', '64.99', 'Tafe di 42 Mod for FS22', 'https://example.com/mods/tafe_di_42.zip');
+initPayPalButton('5', '90.00', 'IMT 558 Mod for FS22', 'https://example.com/mods/imt558.zip');
+initPayPalButton('6', '70.00', 'IMT 549 P Mod for FS22', 'https://example.com/mods/imt549p.zip');
+});
+// Contact Modal
+const contactLinks = document.querySelectorAll('a[href="#contact"]');
+const contactModal = document.getElementById('contact-modal');
+const closeContactModal = document.querySelector('.close-contact-modal');
+const contactForm = document.getElementById('contact-form');
+const contactSuccess = document.getElementById('contact-success');
+const contactError = document.getElementById('contact-error');
+// Open modal on Contact Us click
+contactLinks.forEach(link => {
+link.addEventListener('click', (e) => {
+e.preventDefault();
+contactModal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+});
+// Close modal
+closeContactModal.addEventListener('click', () => {
+contactModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+contactModal.addEventListener('click', (e) => {
+if (e.target === contactModal) {
+contactModal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape' && contactModal.classList.contains('active')) {
+contactModal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+// Form submission via Formspree (no backend needed!)
+contactForm.addEventListener('submit', async (e) => {
+e.preventDefault();
+const formData = new FormData(contactForm);
+// Replace with your Formspree endpoint (free!)
+const FORMSPREE_URL = 'https://formspree.io/f/xrebnanv';
+// 👆 Get YOUR_FORM_ID at: https://formspree.io (1-min setup)
+try {
+const response = await fetch(FORMSPREE_URL, {
+method: 'POST',
+body: formData,
+headers: {
+'Accept': 'application/json'
+}
+});
+if (response.ok) {
+contactForm.reset();
+contactSuccess.style.display = 'block';
+contactError.style.display = 'none';
+// Hide success after 5s
+setTimeout(() => {
+contactSuccess.style.display = 'none';
+contactModal.classList.remove('active');
+document.body.style.overflow = '';
+}, 5000);
+} else {
+throw new Error('Network response was not ok');
+}
+} catch (error) {
+console.error('Error:', error);
+contactError.style.display = 'block';
+contactSuccess.style.display = 'none';
+setTimeout(() => {
+contactError.style.display = 'none';
+}, 5000);
+}
+});
+// Simple prompt on first visit
+if (!localStorage.getItem('fsVersion')) {
+const version = prompt('Which Farming Simulator do you use?', 'FS22');
+localStorage.setItem('fsVersion', version || 'FS22');
+// Hide incompatible mods
+document.querySelectorAll(`[data-fs-version]:not([data-fs-version~="${version}"])`)
+.forEach(el => el.style.display = 'none');
+}
+</script>
+<!-- Contact Modal -->
+<div class="contact-modal" id="contact-modal">
+<div class="contact-modal-content">
+<div class="contact-modal-header">
+<h2>Contact Support</h2>
+<button class="close-contact-modal">&times;</button>
+</div>
+<div class="contact-modal-body">
+<form id="contact-form">
+<div class="form-group">
+<label for="contact-name">Your Name</label>
+<input type="text" id="contact-name" placeholder="e.g. Marko Petrović" required>
+</div>
+<div class="form-group">
+<label for="contact-email">Email Address</label>
+<input type="email" id="contact-email" placeholder="your@email.com" required>
+</div>
+<div class="form-group">
+<label for="contact-subject">Subject</label>
+<select id="contact-subject" required>
+<option value="">— Select a topic —</option>
+<option value="install">Installation Help</option>
+<option value="bug">Bug Report</option>
+<option value="request">Mod Request</option>
+<option value="payment">Payment Issue</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="form-group">
+<label for="contact-message">Your Message</label>
+<textarea id="contact-message" rows="5" placeholder="Describe your issue in detail..." required></textarea>
+</div>
+<button type="submit" class="contact-submit-btn">
+<i class="fas fa-paper-plane"></i> Send Message
+</button>
+</form>
+<div class="contact-success" id="contact-success">
+✅ Message sent! We'll reply within 24–48 hours.
+</div>
+<div class="contact-error" id="contact-error">
+❌ Failed to send. Check your connection and try again.
+</div>
+</div>
+</div>
+</div>
+<!-- Theme Toggle Script - MUST BE AT END OF BODY -->
+<script>
+// Theme Toggle Functionality
+document.addEventListener('DOMContentLoaded', function() {
+const themeToggle = document.querySelector('.theme-toggle');
+const htmlEl = document.documentElement;
+// Check for saved theme preference or default to dark
+const savedTheme = localStorage.getItem('theme') || 'dark';
+htmlEl.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+// Toggle theme on button click
+themeToggle.addEventListener('click', () => {
+const currentTheme = htmlEl.getAttribute('data-theme');
+const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+htmlEl.setAttribute('data-theme', newTheme);
+localStorage.setItem('theme', newTheme);
+updateThemeIcon(newTheme);
+// Add smooth transition
+document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+});
+function updateThemeIcon(theme) {
+const icon = themeToggle.querySelector('i');
+if (theme === 'dark') {
+icon.classList.replace('fa-sun', 'fa-moon');
+icon.title = "Switch to light mode";
+} else {
+icon.classList.replace('fa-moon', 'fa-sun');
+icon.title = "Switch to dark mode";
+}
+}
+// Add smooth transition for theme change
+let themeChangeTimeout;
+htmlEl.addEventListener('transitionend', () => {
+clearTimeout(themeChangeTimeout);
+themeChangeTimeout = setTimeout(() => {
+document.body.style.transition = '';
+}, 300);
+});
+});
+</script>
+</body>
+</html>
