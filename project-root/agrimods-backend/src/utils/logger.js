@@ -18,7 +18,7 @@ const SENSITIVE_KEYS = [
 const SENSITIVE_PATTERNS = [
   /\b[A-Fa-f0-9]{64}\b/g,                    // SHA-256 hashes
   /\b[A-Fa-f0-9]{40}\b/g,                    // SHA-1 hashes
-  /\b[A-Fa-9]{32}\b/g,                       // MD5 hashes
+  /\b[A-Fa-f0-9]{32}\b/g,                       // MD5 hashes
   /\b[A-Za-z0-9]{28,32}\b/g,                 // API keys
   /\b[A-Za-z0-9]{32,64}\b/g,                 // JWT tokens (partial)
   /\b\d{14,16}\b/g,                          // Credit card numbers
@@ -474,5 +474,6 @@ process.on('uncaughtException', (err) => {
 // ======================
 // 📤 EXPORT CONFIGURED LOGGER
 // ======================
+
 
 module.exports = logger;
