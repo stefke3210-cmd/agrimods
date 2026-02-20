@@ -1,38 +1,12 @@
 {
-  "name": "fs25-mods-backend",
+  "name": "agrimods-backend",
   "version": "1.0.0",
-  "description": "FS25 Mods Website Backend",
-  "main": "app.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "keywords": ["fs25", "mods", "farming-simulator"],
-  "author": "Your Name",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.18.2",
-    "mongoose": "^7.5.0",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "express-validator": "^7.0.1",
-    "helmet": "^7.0.0",
-    "express-rate-limit": "^7.1.5",
-    "express-mongo-sanitize": "^2.2.0",
-    "xss-clean": "^0.1.4",
-    "hpp": "^0.2.3",
-    "multer": "^1.4.5-lts.1",
-    "nodemailer": "^6.9.7",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  }
-}
-{
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^7.5.0",
@@ -50,10 +24,13 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "winston": "^3.11.0",
+    "morgan": "^1.10.0",
     "axios": "^1.6.2",
     "stripe": "^14.7.0",
     "crypto": "^1.0.1",
     "bcrypt": "^5.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
