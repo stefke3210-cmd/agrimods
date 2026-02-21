@@ -1,40 +1,9 @@
 // src/controllers/mod.controller.js
 const Mod = require('../models/Mod.model');
-const Category = require('../models/category.model');
+// ✅ FIX 1: Correct case for Category import (or remove if unused)
+const Category = require('../models/Category.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
-const multer = require('multer');
-const path = require('path');
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/mods/');
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, `mod-${uniqueSuffix}${path.extname(file.originalname)}`);
-  }
-});
-
-const upload = multer({
-  storage,
-  limits: {
-    fileSize: 50 * 1024 * 1024 // 50MB limit
-  },
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = ['.zip', '.jar', '.mod', '.mcpack'];
-    const ext = path.extname(file.originalname).toLowerCase();
-    
-    if (allowedTypes.includes(ext)) {
-      cb(null, true);
-    } else {
-      cb(new AppError('Invalid file type. Allowed: .zip, .jar, .mod, .mcpack', 400), false);
-    }
-  }
-});
-
-exports.uploadMiddleware = upload.single('modFile');
 
 // @desc    Get all mods
 // @route   GET /api/v1/mods
@@ -46,22 +15,11 @@ exports.getAllMods = catchAsync(async (req, res, next) => {
 
   const query = {};
   
-  // Filter by category
-  if (req.query.category) {
-    query.category = req.query.category;
-  }
-  
-  // Filter by game version
-  if (req.query.gameVersion) {
-    query.gameVersion = req.query.gameVersion;
-  }
-  
-  // Search by name
+  if (req.query.category) query.category = req.query.category;
+  if (req.query.gameVersion) query.gameVersion = req.query.gameVersion;
   if (req.query.search) {
     query.name = { $regex: req.query.search, $options: 'i' };
   }
-  
-  // Only show approved mods for public
   if (!req.user || !req.user.isAdmin) {
     query.status = 'approved';
   }
@@ -98,16 +56,14 @@ exports.getMod = catchAsync(async (req, res, next) => {
     .populate('reviews');
 
   if (!mod) {
-    return next(new AppError('Mod not found', 404));
+    return next(new AppError('Mod not found', 404, 'MOD_NOT_FOUND'));
   }
 
-  // Check if user has access (approved or is author/admin)
   if (mod.status !== 'approved' && 
       (!req.user || (req.user.id !== mod.author._id.toString() && !req.user.isAdmin))) {
-    return next(new AppError('You don\'t have access to this mod', 403));
+    return next(new AppError('You don\'t have access to this mod', 403, 'ACCESS_DENIED'));
   }
 
-  // Increment download count
   mod.downloads += 1;
   await mod.save();
 
@@ -121,16 +77,14 @@ exports.getMod = catchAsync(async (req, res, next) => {
 // @route   POST /api/v1/mods
 // @access  Private
 exports.createMod = catchAsync(async (req, res, next) => {
-  // Check if file was uploaded
   if (!req.file) {
-    return next(new AppError('Please upload a mod file', 400));
+    return next(new AppError('Please upload a mod file', 400, 'NO_FILE'));
   }
 
   const { name, description, category, gameVersion, tags } = req.body;
 
-  // Validate required fields
   if (!name || !description || !category || !gameVersion) {
-    return next(new AppError('Please provide all required fields', 400));
+    return next(new AppError('Please provide all required fields', 400, 'MISSING_FIELDS'));
   }
 
   const mod = await Mod.create({
@@ -142,10 +96,11 @@ exports.createMod = catchAsync(async (req, res, next) => {
     file: {
       filename: req.file.filename,
       path: req.file.path,
-      size: req.file.size
+      size: req.file.size,
+      mimetype: req.file.mimetype
     },
     author: req.user.id,
-    status: 'pending' // Requires admin approval
+    status: 'pending_review'
   });
 
   res.status(201).json({
@@ -162,20 +117,19 @@ exports.updateMod = catchAsync(async (req, res, next) => {
   const mod = await Mod.findById(req.params.id);
 
   if (!mod) {
-    return next(new AppError('Mod not found', 404));
+    return next(new AppError('Mod not found', 404, 'MOD_NOT_FOUND'));
   }
 
-  // Check if user is author or admin
   if (mod.author._id.toString() !== req.user.id && !req.user.isAdmin) {
-    return next(new AppError('You don\'t have permission to update this mod', 403));
+    return next(new AppError('You don\'t have permission to update this mod', 403, 'ACCESS_DENIED'));
   }
 
-  // Handle file update if new file uploaded
   if (req.file) {
     req.body.file = {
       filename: req.file.filename,
       path: req.file.path,
-      size: req.file.size
+      size: req.file.size,
+      mimetype: req.file.mimetype
     };
   }
 
@@ -198,17 +152,14 @@ exports.deleteMod = catchAsync(async (req, res, next) => {
   const mod = await Mod.findById(req.params.id);
 
   if (!mod) {
-    return next(new AppError('Mod not found', 404));
+    return next(new AppError('Mod not found', 404, 'MOD_NOT_FOUND'));
   }
 
-  // Check if user is author or admin
   if (mod.author._id.toString() !== req.user.id && !req.user.isAdmin) {
-    return next(new AppError('You don\'t have permission to delete this mod', 403));
+    return next(new AppError('You don\'t have permission to delete this mod', 403, 'ACCESS_DENIED'));
   }
 
   await Mod.findByIdAndDelete(req.params.id);
-
-  // TODO: Delete the actual file from storage
 
   res.status(204).json({
     status: 'success',
@@ -223,17 +174,17 @@ exports.downloadMod = catchAsync(async (req, res, next) => {
   const mod = await Mod.findById(req.params.id);
 
   if (!mod) {
-    return next(new AppError('Mod not found', 404));
+    return next(new AppError('Mod not found', 404, 'MOD_NOT_FOUND'));
   }
 
   if (mod.status !== 'approved') {
-    return next(new AppError('Mod is not available for download', 403));
+    return next(new AppError('Mod is not available for download', 403, 'MOD_NOT_PUBLISHED'));
   }
 
-  // Increment download count
   mod.downloads += 1;
   await mod.save();
 
+  // ⚠️ Note: On Render, files are ephemeral. Consider using S3/Cloudinary for production.
   res.download(mod.file.path, mod.file.filename);
 });
 
@@ -246,28 +197,25 @@ exports.rateMod = catchAsync(async (req, res, next) => {
   const mod = await Mod.findById(req.params.id);
 
   if (!mod) {
-    return next(new AppError('Mod not found', 404));
+    return next(new AppError('Mod not found', 404, 'MOD_NOT_FOUND'));
   }
 
-  // Check if user already rated
-  const existingReview = mod.reviews.find(
-    r => r.user.toString() === req.user.id
-  );
+  const existingReview = mod.reviews?.find(r => r.user?.toString() === req.user.id);
 
   if (existingReview) {
-    return next(new AppError('You already rated this mod', 400));
+    return next(new AppError('You already rated this mod', 400, 'ALREADY_REVIEWED'));
   }
 
-  // Add review (implement based on your model)
+  mod.reviews = mod.reviews || [];
   mod.reviews.push({
     user: req.user.id,
-    rating,
-    review,
+    rating: parseInt(rating),
+    title: review?.substring(0, 100) || '',
+    comment: review,
     createdAt: new Date()
   });
 
-  // Calculate average rating
-  const totalRating = mod.reviews.reduce((sum, r) => sum + r.rating, 0);
+  const totalRating = mod.reviews.reduce((sum, r) => sum + (r.rating || 0), 0);
   mod.ratingsAverage = totalRating / mod.reviews.length;
   mod.ratingsQuantity = mod.reviews.length;
 
@@ -281,6 +229,43 @@ exports.rateMod = catchAsync(async (req, res, next) => {
       review,
       averageRating: mod.ratingsAverage
     }
+  });
+});
+
+// ✅ FIX 2: ADD MISSING addScreenshots FUNCTION
+// @desc    Add screenshots to mod
+// @route   POST /api/v1/mods/:id/screenshots
+// @access  Private (Author or Admin)
+exports.addScreenshots = catchAsync(async (req, res, next) => {
+  const mod = await Mod.findById(req.params.id);
+
+  if (!mod) {
+    return next(new AppError('Mod not found', 404, 'MOD_NOT_FOUND'));
+  }
+
+  if (mod.author._id.toString() !== req.user.id && !req.user.isAdmin) {
+    return next(new AppError('You don\'t have permission to update this mod', 403, 'ACCESS_DENIED'));
+  }
+
+  if (!req.files || req.files.length === 0) {
+    return next(new AppError('Please upload at least one image', 400, 'NO_FILES'));
+  }
+
+  const screenshots = req.files.map(file => ({
+    url: file.path,
+    filename: file.filename,
+    size: file.size,
+    mimetype: file.mimetype
+  }));
+
+  mod.screenshots = mod.screenshots || [];
+  mod.screenshots.push(...screenshots);
+  await mod.save();
+
+  res.status(200).json({
+    status: 'success',
+    message: 'Screenshots added successfully',
+    data: { screenshots: mod.screenshots }
   });
 });
 
@@ -311,17 +296,16 @@ exports.updateModStatus = catchAsync(async (req, res, next) => {
   const mod = await Mod.findById(req.params.id);
 
   if (!mod) {
-    return next(new AppError('Mod not found', 404));
+    return next(new AppError('Mod not found', 404, 'MOD_NOT_FOUND'));
   }
 
-  if (!['approved', 'rejected', 'pending'].includes(status)) {
-    return next(new AppError('Invalid status', 400));
+  if (!['approved', 'rejected', 'pending_review', 'published'].includes(status)) {
+    return next(new AppError('Invalid status', 400, 'INVALID_STATUS'));
   }
 
   mod.status = status;
-  if (rejectionReason) {
-    mod.rejectionReason = rejectionReason;
-  }
+  if (rejectionReason) mod.rejectionReason = rejectionReason;
+  if (status === 'approved' && !mod.publishedAt) mod.publishedAt = new Date();
 
   await mod.save();
 
@@ -338,7 +322,7 @@ exports.updateModStatus = catchAsync(async (req, res, next) => {
 exports.getModStats = catchAsync(async (req, res, next) => {
   const totalMods = await Mod.countDocuments();
   const approvedMods = await Mod.countDocuments({ status: 'approved' });
-  const pendingMods = await Mod.countDocuments({ status: 'pending' });
+  const pendingMods = await Mod.countDocuments({ status: 'pending_review' });
   const rejectedMods = await Mod.countDocuments({ status: 'rejected' });
 
   const totalDownloads = await Mod.aggregate([
@@ -356,4 +340,3 @@ exports.getModStats = catchAsync(async (req, res, next) => {
     }
   });
 });
-
