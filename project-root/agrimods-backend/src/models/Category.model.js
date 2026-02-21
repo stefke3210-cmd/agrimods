@@ -15,10 +15,7 @@ const categorySchema = new mongoose.Schema({
     lowercase: true
   },
   
-  description: {
-    type: String,
-    maxlength: [500, 'Description cannot exceed 500 characters']
-  },
+  description: String,
   
   icon: String,
   
@@ -49,8 +46,5 @@ categorySchema.pre('save', function(next) {
   }
   next();
 });
-
-categorySchema.index({ slug: 1 });
-categorySchema.index({ parent: 1 });
 
 module.exports = mongoose.model('Category', categorySchema);
