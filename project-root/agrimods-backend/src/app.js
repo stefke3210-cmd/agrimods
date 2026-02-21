@@ -25,9 +25,6 @@ const { protect } = require('./controllers/auth.controller');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/error.controller');
 
-const app = express();
-
-
 // 1. GLOBAL MIDDLEWARES
 // Set security HTTP headers
 app.use(helmet());
@@ -101,3 +98,4 @@ app.use(globalErrorHandler);
 
 
 module.exports = app;
+
