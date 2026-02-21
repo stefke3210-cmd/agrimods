@@ -102,4 +102,79 @@ exports.getPreviewVideo = catchAsync(async (req, res, next) => {
   
   res.setHeader('Content-Type', 'video/mp4');
   fs.createReadStream(videoPath).pipe(res);
+
 });
+
+// download.controller.js should export:
+module.exports = {
+  // Public Downloads
+  downloadMod,
+  downloadBundle,
+  downloadResource,
+  previewFile,
+  
+  // Protected Downloads
+  downloadPremiumContent,
+  downloadPurchasedItems,
+  
+  // History
+  getDownloadHistory,
+  getDownloadDetails,
+  checkDownloadHistory,
+  removeFromHistory,
+  exportDownloadHistory,
+  
+  // Token
+  generateDownloadToken,
+  downloadWithToken,
+  revokeDownloadToken,
+  
+  // Batch
+  initiateBatchDownload,
+  getBatchDownloadStatus,
+  downloadBatchAsZip,
+  cancelBatchDownload,
+  
+  // Statistics
+  getUserDownloadStats,
+  getModDownloadStats,
+  getBundleDownloadStats,
+  getTrendingDownloads,
+  getRecentDownloads,
+  
+  // Limits
+  getDownloadLimits,
+  checkDownloadLimit,
+  requestLimitIncrease,
+  
+  // Resume
+  resumeDownload,
+  getResumeInfo,
+  
+  // Admin
+  getAllDownloads,
+  getGlobalDownloadStats,
+  getUserDownloadsByAdmin,
+  getModDownloadsByAdmin,
+  getSuspiciousDownloads,
+  blockUserFromDownloads,
+  unblockUserFromDownloads,
+  getBlockedUsers,
+  deleteDownloadRecord,
+  cleanupOldDownloads,
+  
+  // Webhooks
+  handleCDNWebhook,
+  handleAnalyticsWebhook,
+  
+  // Utility
+  checkDownloadPermission,
+  reportDownloadIssue,
+  getReportStatus,
+  requestDownloadAccess,
+  getAccessRequestStatus,
+  
+  // CDN
+  generateCDNUrl,
+  invalidateCDNUrl
+};
