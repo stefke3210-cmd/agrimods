@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 const path = require("path");
 const app = require(path.join(__dirname, 'src', 'app'));
 const config = require(path.join(__dirname, 'src', 'config', 'database'));
+// server.js
+const authRoutes = require('./src/routes/auth.routes');
+
+// Mount routes
+app.use('/api/v1/auth', authRoutes);
 
 // 🔍 DEBUG: Check if config is loaded
 console.log('🔍 DEBUG: Config loaded:', !!config);
@@ -71,3 +76,4 @@ async function startServer() {
 }
 
 startServer();
+
