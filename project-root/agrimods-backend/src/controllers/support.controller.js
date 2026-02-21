@@ -1,6 +1,6 @@
 const AppError = require('../utils/appError');
-const catchAsync = require('../utils/catchAsync');
-const SupportTicket = require('../models/SupportTicket');
+const catchAsync = require('../utils/catchAsync')
+const SupportTicket = require('../models/SupportTicket')
 const EmailService = require('../services/email.service');
 
 // Create new support ticket
@@ -269,3 +269,4 @@ module.exports = {
 };
 
 });
+
