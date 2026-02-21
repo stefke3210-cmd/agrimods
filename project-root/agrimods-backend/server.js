@@ -6,6 +6,10 @@ const config = require(path.join(__dirname, 'src', 'config', 'database'));
 // Declare server at top level so it's accessible in error handlers
 let server;
 
+// Add this right after your imports
+console.log('🔍 DEBUG: MONGODB_URI exists:', !!config.mongoURI);
+console.log('🔍 DEBUG: FRONTEND_URL:', process.env.FRONTEND_URL);
+
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
   console.error('🔴 UNCAUGHT EXCEPTION! Shutting down...');
@@ -55,3 +59,4 @@ async function startServer() {
 }
 
 startServer();
+
