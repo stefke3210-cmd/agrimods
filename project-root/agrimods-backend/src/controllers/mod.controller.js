@@ -1,7 +1,6 @@
 // src/controllers/mod.controller.js
 const Mod = require('../models/Mod.model');
 // ✅ FIX 1: Correct case for Category import (or remove if unused)
-const Category = require('../models/Category.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -340,3 +339,4 @@ exports.getModStats = catchAsync(async (req, res, next) => {
     }
   });
 });
+
