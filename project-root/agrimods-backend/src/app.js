@@ -28,6 +28,12 @@ const globalErrorHandler = require('./controllers/error.controller');
 // app.js or server.js
 const downloadRoutes = require('./src/routes/download.routes');
 
+// app.js or server.js
+const supportRoutes = require('./src/routes/support.routes');
+
+// Mount routes
+app.use('/api/v1/support', supportRoutes);
+
 // Mount routes
 app.use('/api/v1/download', downloadRoutes);
 
@@ -104,5 +110,6 @@ app.use(globalErrorHandler);
 
 
 module.exports = app;
+
 
 
