@@ -133,4 +133,139 @@ exports.closeTicket = catchAsync(async (req, res, next) => {
       ticket
     }
   });
+
+  // support.controller.js should export:
+module.exports = {
+  // Public
+  getTicketCategories,
+  getFAQ,
+  checkTicketStatus,
+  
+  // Customer
+  createTicket,
+  getUserTickets,
+  getTicketById,
+  updateTicket,
+  addMessage,
+  closeTicket,
+  reopenTicket,
+  deleteTicket,
+  submitSatisfaction,
+  getTicketAttachments,
+  downloadAttachment,
+  
+  // Messages
+  getTicketMessages,
+  editMessage,
+  deleteMessage,
+  subscribeToTicket,
+  unsubscribeFromTicket,
+  getTicketSubscribers,
+  
+  // Search & Filter
+  searchTickets,
+  filterTickets,
+  sortTickets,
+  getPaginatedTickets,
+  
+  // Staff
+  getStaffTickets,
+  getUnassignedTickets,
+  assignTicket,
+  claimTicket,
+  unassignTicket,
+  updateTicketStatus,
+  updateTicketPriority,
+  updateTicketCategory,
+  resolveTicket,
+  closeTicketAsStaff,
+  addInternalNote,
+  getInternalNotes,
+  editInternalNote,
+  deleteInternalNote,
+  mergeTickets,
+  splitTicket,
+  escalateTicket,
+  transferTicket,
+  getActivityLog,
+  
+  // Admin
+  getAllTickets,
+  getGlobalStats,
+  getDashboardStats,
+  getStaffPerformanceStats,
+  getTicketTrends,
+  getOverdueTickets,
+  getHighPriorityTickets,
+  getUnresolvedTickets,
+  getTicketsByStaff,
+  getTicketsByUser,
+  deleteTicketAsAdmin,
+  bulkUpdateTickets,
+  bulkDeleteTickets,
+  bulkAssignTickets,
+  
+  // Categories & Tags
+  getAllCategories,
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  getAllTags,
+  createTag,
+  deleteTag,
+  addTagsToTicket,
+  removeTagFromTicket,
+  
+  // Reports
+  getDailyReport,
+  getWeeklyReport,
+  getMonthlyReport,
+  getCustomReport,
+  exportReport,
+  getSatisfactionReport,
+  getResponseTimeReport,
+  getResolutionTimeReport,
+  
+  // Notifications
+  getNotifications,
+  markNotificationAsRead,
+  markAllNotificationsAsRead,
+  deleteNotification,
+  getUnreadNotificationsCount,
+  
+  // SLA
+  getSLASettings,
+  updateSLASettings,
+  getSLAViolations,
+  addSLAViolationExcuse,
+  
+  // Canned Responses
+  getCannedResponses,
+  createCannedResponse,
+  updateCannedResponse,
+  deleteCannedResponse,
+  getPersonalCannedResponses,
+  getSharedCannedResponses,
+  
+  // Knowledge Base
+  getKBArticles,
+  getKBArticle,
+  searchKBArticles,
+  getKBCategories,
+  submitKBArticleFeedback,
+  
+  // Live Chat
+  getChatSessions,
+  startChatSession,
+  getChatMessages,
+  sendChatMessage,
+  endChatSession,
+  convertChatToTicket,
+  
+  // Webhooks
+  handleEmailWebhook,
+  handleNotificationWebhook,
+  handleSLAWebhook
+};
+
 });
