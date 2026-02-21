@@ -234,4 +234,67 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   
   // 3) Log the user in, send JWT
   createSendToken(user, 200, res);
+
 });
+
+// auth.controller.js should export:
+module.exports = {
+  // Public
+  register,
+  login,
+  logout,
+  forgotPassword,
+  resetPassword,
+  verifyEmail,
+  resendVerificationEmail,
+  refreshToken,
+  getMe,
+  
+  // Protected
+  updatePassword,
+  updateProfile,
+  updateAvatar,
+  deleteAccount,
+  deactivateAccount,
+  reactivateAccount,
+  
+  // OAuth
+  googleAuth,
+  googleCallback,
+  githubAuth,
+  githubCallback,
+  discordAuth,
+  discordCallback,
+  
+  // Admin
+  getAllUsers,
+  getUserById,
+  updateUserById,
+  deleteUserById,
+  updateUserRole,
+  updateUserStatus,
+  restrictTo,
+  
+  // Utility
+  checkEmailExists,
+  checkUsernameExists,
+  sendVerificationEmail,
+  
+  // Session
+  getActiveSessions,
+  revokeSession,
+  revokeAllOtherSessions,
+  
+  // 2FA
+  enable2FA,
+  verify2FA,
+  disable2FA,
+  generateBackupCodes,
+  
+  // Recovery
+  recoverAccount,
+  unlockAccount,
+  
+  // Middleware
+  protect
+};
