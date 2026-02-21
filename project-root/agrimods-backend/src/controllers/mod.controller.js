@@ -1,5 +1,5 @@
 // src/controllers/mod.controller.js
-const Mod = require('../models/mod.model');
+const Mod = require('../models/Mod.model');
 const Category = require('../models/category.model');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -356,3 +356,4 @@ exports.getModStats = catchAsync(async (req, res, next) => {
     }
   });
 });
+
